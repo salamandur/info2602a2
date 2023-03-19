@@ -40,7 +40,7 @@ def login():
 
 @app.route("/app", methods=['GET'])
 @app.route("/app/<int:pokemon_id>", methods=['GET'])
-# add @login_required decorator to require login
+@login_required
 def home_page(pokemon_id=1):
     #pass relevant data to template
     return render_template("home.html")
@@ -52,3 +52,4 @@ def home_page(pokemon_id=1):
 
 if __name__ == "__main__":
   app.run(host='0.0.0.0', port=81)
+
