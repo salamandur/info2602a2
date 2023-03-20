@@ -68,6 +68,7 @@ def home_page_id(pokemon_id):
   if pokemons:
     for p in pokemons:
       p_json.append(p.get_json())
+    print(p_json)
   return render_template('home.html', pokemons = p_json, selectedPokemon=selectedPokemon)
   
 @app.route("/login", methods=['POST'])
