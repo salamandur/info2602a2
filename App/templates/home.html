@@ -15,12 +15,12 @@
 
 <div class="row">
     <div class="col m2 list-container collection" style="max-height: 84vh;">
-
+        {% for pokemon in pokemons %}
         <!-- edit to show all pokemon links but have only the selected pokemon as active -->
         <div class="list-item">   
-            <a href="/app/1" id="poke-1" class="collection-item active" >Bulbasaur</a> 
+            <a href="/app/{{pokemon.id}}" id="poke-{{pokemon.id}}" class="collection-item" >{{pokemon.name}}</a> 
         </div>
-    
+        {% endfor %}
     </div>
     
     <div class="col m3">

@@ -14,7 +14,7 @@ def load_user(user_id):
 @login_manager.unauthorized_handler
 def unauthorized():
   flash('Unauthorized!')
-  return redirect(url_for('login_page'))
+  return redirect(url_for('login'))
 
 
 def create_app():
@@ -41,9 +41,7 @@ app = create_app()
 #To update
 @app.route("/", methods=['GET'])
 def login():
-  # return render_template("login.html")
-  return redirect(url_for('home_page'))
-
+  return render_template("login.html")
 
 @app.route("/signup", methods=['GET'])
 def signup():
@@ -54,10 +52,11 @@ def signup():
 @app.route("/app/<int:pokemon_id>", methods=['GET'])
 @login_required
 def home_page(pokemon_id=1):
-  #pass relevant data to template
-  return render_template("home.html")
-
-
+  pokemons = UserPokemon.query.filter_by(user_id = current_user.id).all()
+  if pokemons:
+    p_json = [ p.get_json() for p in pokemons ]
+  return render_template('home.html', pokemons = p_json)
+  
 @app.route("/login", methods=['POST'])
 def loginUser():
   data = request.form
@@ -69,7 +68,6 @@ def loginUser():
   else:
     flash('Invalid username or password')  # send message to next page
   return redirect('/')
-  return render_template("login.html")
 
 
 @app.route("/signup", methods=['POST'])
@@ -111,8 +109,9 @@ def release():
 
 @app.route("/logout", methods=['GET'])
 def logout():
-  flash('Logged out!')
-  # return redirect(url_for('home_page'))
+  logout_user()
+  flash('Logged Out')
+  return redirect(url_for('home_page'))
 
 
 # Form Action Routes
