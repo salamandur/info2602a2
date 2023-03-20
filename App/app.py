@@ -49,13 +49,26 @@ def signup():
 
 
 @app.route("/app", methods=['GET'])
-@app.route("/app/<int:pokemon_id>", methods=['GET'])
 @login_required
 def home_page(pokemon_id=1):
   pokemons = UserPokemon.query.filter_by(user_id = current_user.id).all()
+  selectedPokemon = Pokemon.query.filter_by(id=pokemon_id).first()
+  p_json = []
   if pokemons:
-    p_json = [ p.get_json() for p in pokemons ]
-  return render_template('home.html', pokemons = p_json)
+    for p in pokemons:
+      p_json.append(p.get_json())
+  return render_template('home.html', pokemons = p_json, selectedPokemon=selectedPokemon)
+  
+@app.route("/app/<int:pokemon_id>", methods=['GET'])
+@login_required
+def home_page_id(pokemon_id):
+  pokemons = UserPokemon.query.filter_by(user_id = current_user.id).all()
+  selectedPokemon = Pokemon.query.filter_by(id=pokemon_id).first()
+  p_json = []
+  if pokemons:
+    for p in pokemons:
+      p_json.append(p.get_json())
+  return render_template('home.html', pokemons = p_json, selectedPokemon=selectedPokemon)
   
 @app.route("/login", methods=['POST'])
 def loginUser():
@@ -93,18 +106,36 @@ def capture():
   # return redirect(url_for('home_page'))
 
 
-@app.route("/rename-pokemon/<user_poke_id>", methods=['POST'])
+@app.route("/rename-pokemon/<int:user_poke_id>", methods=['POST'])
 @login_required
-def rename():
-  flash('Pokemon Renamed!')
-  # return redirect(url_for('home_page'))
+def rename(user_poke_id):
+  data = request.form
+  user = UserPokemon.query.filter_by(user_id=current_user.user_id).first()
+  user_pokemon = UserPokemon.query.filter_by(pokemon_id=user_poke_id, user_id=user.user_id).first()
+  if user_pokemon:
+    user_pokemon.name = data.get('name')
+    db.session.add(user_pokemon)
+    db.session.commit()
+    flash('Pokemon Renamed!')
+  else:
+    flash('Pokemon not Renamed!')
+  return redirect(url_for('home_page'))
 
 
-@app.route("/release-pokemon/<user_poke_id>", methods=['GET'])
+@app.route("/release-pokemon/<int:user_poke_id>", methods=['GET'])
 @login_required
-def release():
+def release(user_poke_id):
+  user = UserPokemon.query.filter_by(user_id=current_user.user_id).first()
+  user_pokemon = UserPokemon.query.filter_by(pokemon_id=user_poke_id, user_id=user.user_id).first()
+  if user_pokemon:
+    db.session.delete(user_pokemon)
+    db.session.commit()
+    flash('Pokemon Released!')
+  else:
+    flash('Pokemon not Renamed!')
+  return redirect(url_for('home_page'))
   flash('Pokemon Released!')
-  # return redirect(url_for('home_page'))
+  return redirect(url_for('home_page'))
 
 
 @app.route("/logout", methods=['GET'])
