@@ -95,7 +95,7 @@ def signupUser():
 @login_required
 def capture():
   flash('Pokemon Captured!')
-  # return redirect(url_for('home_page'))
+  return redirect(url_for('home_page'))
 
 
 @app.route("/rename-pokemon/<int:user_poke_id>", methods=['POST'])
