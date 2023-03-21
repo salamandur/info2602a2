@@ -11,7 +11,7 @@ def initialize():
   db.session.add(bob)
   db.session.commit()
   
-  with open('pokemon.csv', newline='', encoding='utf8') as csvfile:
+  with open('pokemon.csv', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
       if row['height_m'] == '':
