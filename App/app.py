@@ -51,27 +51,16 @@ def signup():
 @app.route("/app", methods=['GET'])
 @login_required
 def home_page(pokemon_id=1):
-  pokemons = UserPokemon.query.filter_by(user_id = current_user.id).all()
+  pokemons = Pokemon.query.all()
   selectedPokemon = Pokemon.query.filter_by(id=pokemon_id).first()
-  p_json = []
-  if pokemons:
-    for p in pokemons:
-      p_json.append(p.get_json())
-  return render_template('home.html', pokemons = p_json, selectedPokemon=selectedPokemon)
+  return render_template('home.html', pokemons = pokemons, selectedPokemon=selectedPokemon)
   
 @app.route("/app/<int:pokemon_id>", methods=['GET'])
 @login_required
 def home_page_id(pokemon_id):
   selectedPokemon = Pokemon.query.filter_by(id=pokemon_id).first()
-  p_json = []
   pokemons = Pokemon.query.all()
-  if pokemons:
-    p_json=[pokemon.get_json() for pokemon in pokemons]
-  # if pokemons:
-  #   for p in pokemons:
-  #     p_json.append(p.get_json())
-    print(p_json)
-  return render_template('home.html', pokemons = p_json, selectedPokemon=selectedPokemon)
+  return render_template('home.html', pokemons = pokemons, selectedPokemon=selectedPokemon)
   
 @app.route("/login", methods=['POST'])
 def loginUser():
