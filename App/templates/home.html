@@ -32,48 +32,57 @@
     
     <div class="col m3">
 
-        <p class="text-center">Selected Pokemon</p>
+        <h5 class="text-center">Selected Pokemon</h5> 
 
-        <li class="collection-item">
-                <div class="content fill-space">
-                  <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{selectedPokemon.id}}.png">
-                </div>
-                <div class="card-action">
-                  
-                  <a href="/rename-pokemon/{{selectedPokemon.id}}">Rename</a>
-                  <a href="/release-pokemon/{{selectedPokemon.id}}">Release</a>
-                </div>
-            </li>
+        <p class="collection-item">
+          <div class="content fill-space">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{selectedPokemon.id}}.png">
+          </div>
+          <p>ID: {{selectedPokemon.id}}</p>
+          <p>Name: {{selectedPokemon.name}}</p>
+          <p>Attack: {{selectedPokemon.attack}}</p>
+          <p>Defense: {{selectedPokemon.defense}}</p>
+          <p>HP: {{selectedPokemon.hp}}</p>
+          <p>Height: {{selectedPokemon.height}}</p>
+          <p>SP_Attack: {{selectedPokemon.sp_attack}}</p>
+          <p>SP_Defense: {{selectedPokemon.sp_defense}}</p>
+          <p>Speed: {{selectedPokemon.speed}}</p>
+          <p>Type 1: {{selectedPokemon.type1}}</p>
+          <p>Type 2: {{selectedPokemon.type2}}</p>
+          <p>Weight: {{selectedPokemon.weight}}</p>
+          <div class="card-action">
+            <a class="btn" href="/pokemon/{{selectedPokemon.id}}">Capture</a>
+          </div>
+        </p>
     </div>
 
     <div class="col m7">
-        <p class="text-center">Your Pokemon</p>
-        <table>
-          <row>
-            <span class="card-title">{{selectedPokemon.name}}
-              <label class="right">
-              </label>
-            </span>
-          </row>
-          <div class="card-action">
-            <form id="renameForm" method="POST" action="/rename-pokemon/{{selectedPokemon.id}}" style="padding:1em">
-              <div class="row">
-                <div class="content fill-space">
-                  <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{selectedPokemon.id}}.png">
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input placeholder="name" id="newname" name="newname" type="text" class="validate">
-                  <label for="newname">New Name</label>
-                </div>
-              </div>
-              <input class="btn" type="submit" value="Rename">
-                    
-            </form>
-            <a class="btn" href="/release-pokemon/{{selectedPokemon.id}}">Release</a>
-          </div>
-        </table>
+      <h5 class="text-center">Your Pokemon</h5>
+      <table>
+        <thead>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Species</th>
+          <th></th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{selectedPokemon.id}}</td>
+            <td>{{selectedPokemon.name}}</td>
+            <td>{{selectedPokemon.name}}</td>
+            <td>
+              <form id="renameForm" method="POST" action="/rename-pokemon/{{selectedPokemon.id}}" style="padding:1em">
+                <input placeholder="Enter New Name Here" id="newname" name="newname" type="text" class="input-field col s7 validate">
+                <a class="btn" href="/rename-pokemon/{{selectedPokemon.id}}">Rename</a>
+              </form>
+            </td>
+            <td>
+              <a class="btn" href="/release-pokemon/{{selectedPokemon.id}}">Release</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
 </div>
