@@ -32,7 +32,7 @@
     
     <div class="col m3" >
       <p class="text-center">Selected Pokemon</p>
-      <div class="card" style="padding:10px">
+      <div class="card" style="padding:1em">
         <row>
           <div class="content fill-space">
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{selectedPokemon.id}}.png">
@@ -70,13 +70,13 @@
             <td>{{userPokemon.pokemon.name}}</td>
             <td>{{userPokemon.name}}</td>
             <td>
-              <form id="{{userPokemon.name}}-new_name" method="POST" action="/rename-pokemon/{{userPokemon.id}}" style="padding:1em">
-                <input placeholder="Enter New Name Here" name="pokemon_name" type="text" class="input-field col s7 validate">
+              <form id='{{userPokemon.name}}-new_name' method="POST" action="/rename-pokemon/{{userPokemon.id}}" style="padding:1em">
+                <input placeholder="Enter New Name Here" id="pokemon_name" name="pokemon_name" type="text" class="input-field col s7 validate">
                 <a class="btn" id="rename-{{userPokemon.name}}" href="/rename-pokemon/{{userPokemon.id}}">Rename</a>
-              </form>
+              </form> 
             </td>
             <td>
-              <a class="btn" id="release-{{userPokemon.name}}" href="/release-pokemon/{{userPokemon.id}}">Release</a>
+              <a class="btn" id='release-{{userPokemon.name}}' href="/release-pokemon/{{userPokemon.id}}">Release</a>
             </td>
           </tr>
           {% endfor %}
