@@ -30,30 +30,28 @@
       {% endif %}
     </div>
     
-    <div class="col m3 card" >
+    <div class="col m3" >
       <p class="text-center">Selected Pokemon</p>
-      <div class="card">
-<!--         <p class="collection-item"> -->
+      <div class="card" style="padding:10px">
+        <row>
           <div class="content fill-space">
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{selectedPokemon.id}}.png">
           </div>
           <span class="card-title">{{selectedPokemon.name}}</span>
-<!--           <p>ID: {{selectedPokemon.id}}</p>
-          <p>Attack: {{selectedPokemon.attack}}</p>
-          <p>Defense: {{selectedPokemon.defense}}</p>
-          <p>HP: {{selectedPokemon.hp}}</p> -->
           <p>Type 1: {{selectedPokemon.type1}}</p>
           <p>Type 2: {{selectedPokemon.type2}}</p>
           <p>Weight: {{selectedPokemon.weight}}</p>
           <p>Height: {{selectedPokemon.height}}</p>
-<!--           <p>SP_Attack: {{selectedPokemon.sp_attack}}</p>
-          <p>SP_Defense: {{selectedPokemon.sp_defense}}</p>
-          <p>Speed: {{selectedPokemon.speed}}</p> -->
+        </row>
           <div class="card-action">
-            <a class="btn" href="/pokemon/{{selectedPokemon.id}}">Capture</a>
+            <form id="captureForm" method="POST" action="/pokemon/{{selectedPokemon.id}}" style="padding:1em">
+              <row>
+                <input placeholder="Enter A Name Here" id="pokemon_name" name="pokemon_name" type="text" class="validate">
+                <a class="btn" id="captureBtn" href="/pokemon/{{selectedPokemon.id}}">Capture</a>
+              </row>
+            </form>
           </div>
       </div>
-<!--         </p> -->
     </div>
 
     <div class="col m7">
@@ -89,7 +87,7 @@
 
 
 <script>
-    var pokeElem = document.getElementById('poke-{{selectedPokemon.id}}');// edit to scroll to selected pokemon
+    var pokeElem = document.getElementById('poke-{{selectedPokemon.id}}');
     pokeElem.scrollIntoView();
 </script>
 
