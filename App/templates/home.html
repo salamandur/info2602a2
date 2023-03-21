@@ -30,30 +30,30 @@
       {% endif %}
     </div>
     
-    <div class="col m3">
-
-        <h5 class="text-center">Selected Pokemon</h5> 
-
-        <p class="collection-item">
+    <div class="col m3 card" >
+      <p class="text-center">Selected Pokemon</p>
+      <div class="card">
+<!--         <p class="collection-item"> -->
           <div class="content fill-space">
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{selectedPokemon.id}}.png">
           </div>
-          <p>ID: {{selectedPokemon.id}}</p>
-          <p>Name: {{selectedPokemon.name}}</p>
+          <span class="card-title">{{selectedPokemon.name}}</span>
+<!--           <p>ID: {{selectedPokemon.id}}</p>
           <p>Attack: {{selectedPokemon.attack}}</p>
           <p>Defense: {{selectedPokemon.defense}}</p>
-          <p>HP: {{selectedPokemon.hp}}</p>
-          <p>Height: {{selectedPokemon.height}}</p>
-          <p>SP_Attack: {{selectedPokemon.sp_attack}}</p>
-          <p>SP_Defense: {{selectedPokemon.sp_defense}}</p>
-          <p>Speed: {{selectedPokemon.speed}}</p>
+          <p>HP: {{selectedPokemon.hp}}</p> -->
           <p>Type 1: {{selectedPokemon.type1}}</p>
           <p>Type 2: {{selectedPokemon.type2}}</p>
           <p>Weight: {{selectedPokemon.weight}}</p>
+          <p>Height: {{selectedPokemon.height}}</p>
+<!--           <p>SP_Attack: {{selectedPokemon.sp_attack}}</p>
+          <p>SP_Defense: {{selectedPokemon.sp_defense}}</p>
+          <p>Speed: {{selectedPokemon.speed}}</p> -->
           <div class="card-action">
             <a class="btn" href="/pokemon/{{selectedPokemon.id}}">Capture</a>
           </div>
-        </p>
+      </div>
+<!--         </p> -->
     </div>
 
     <div class="col m7">
