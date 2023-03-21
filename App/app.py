@@ -98,7 +98,7 @@ def signupUser():
 def capture(pokemon_id):
   data = request.form
   name = data.get('pokemon_name')
-  User.catch_pokemon(pokemon_id, name)
+  User.catch_pokemon(current_user, pokemon_id, name)
   flash('Pokemon Captured!')
   return redirect('/app')
 
@@ -107,8 +107,8 @@ def capture(pokemon_id):
 @login_required
 def rename(user_poke_id):
   data = request.form
-  name = data.get('name')
-  User.rename_pokemon(user_poke_id, name)
+  name = data.get('pokemon_name')
+  User.rename_pokemon(current_user, user_poke_id, name)
   flash('Pokemon Renamed!')
   return redirect('/app')
 
@@ -116,7 +116,7 @@ def rename(user_poke_id):
 @app.route("/release-pokemon/<int:user_poke_id>", methods=['GET'])
 @login_required
 def release(user_poke_id):
-  User.release_pokemon(user_poke_id)
+  User.release_pokemon(current_user, user_poke_id)
   flash('Pokemon Released!')
   return redirect('/app')
 

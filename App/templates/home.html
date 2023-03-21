@@ -68,15 +68,15 @@
           {% for userPokemon in userPokemons %}
           <tr>
             <td>{{userPokemon.pokemon.name}}</td>
-            <td>{{selectedPokemon.name}}</td>
+            <td>{{userPokemon.name}}</td>
             <td>
-              <form id="renameForm" method="POST" action="/rename-pokemon/{{selectedPokemon.id}}" style="padding:1em">
-                <input placeholder="Enter New Name Here" id="newname" name="newname" type="text" class="input-field col s7 validate">
-                <a class="btn" href="/rename-pokemon/{{selectedPokemon.id}}">Rename</a>
+              <form id="{{userPokemon.name}}-new_name" method="POST" action="/rename-pokemon/{{userPokemon.id}}" style="padding:1em">
+                <input placeholder="Enter New Name Here" id="pokemon_name" name="pokemon_name" type="text" class="input-field col s7 validate">
+                <a class="btn" id="rename-{{userPokemon.name}}" href="/rename-pokemon/{{userPokemon.id}}">Rename</a>
               </form>
             </td>
             <td>
-              <a class="btn" href="/release-pokemon/{{selectedPokemon.id}}">Release</a>
+              <a class="btn" id="release-{{userPokemon.name}}" href="/release-pokemon/{{userPokemon.id}}">Release</a>
             </td>
           </tr>
           {% endfor %}
