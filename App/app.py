@@ -61,7 +61,7 @@ def home(pokemon_id=1):
 def home_id(pokemon_id):
   selectedPokemon = Pokemon.query.filter_by(id=pokemon_id).first()
   pokemons = Pokemon.query.all()
-  userPokemons = UserPokemon.query.filter_by(user_id=current_user.user_id).all()
+  userPokemons = UserPokemon.query.filter_by(user_id=current_user.id).all()
   return render_template('home.html', pokemons = pokemons, selectedPokemon=selectedPokemon, userPokemons = userPokemons)
   
 @app.route("/login", methods=['POST'])
