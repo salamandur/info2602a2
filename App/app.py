@@ -50,17 +50,19 @@ def signup():
 
 @app.route("/app", methods=['GET'])
 @login_required
-def home_page(pokemon_id=1):
+def home(pokemon_id=1):
   pokemons = Pokemon.query.all()
   selectedPokemon = Pokemon.query.filter_by(id=pokemon_id).first()
-  return render_template('home.html', pokemons = pokemons, selectedPokemon=selectedPokemon)
-  
+  userPokemons = UserPokemon.query.filter_by(user_id = current_user.id).all()
+  return render_template('home.html', pokemons = pokemons, selectedPokemon=selectedPokemon, userPokemons = userPokemons)
+
 @app.route("/app/<int:pokemon_id>", methods=['GET'])
 @login_required
-def home_page_id(pokemon_id):
+def home_id(pokemon_id):
   selectedPokemon = Pokemon.query.filter_by(id=pokemon_id).first()
   pokemons = Pokemon.query.all()
-  return render_template('home.html', pokemons = pokemons, selectedPokemon=selectedPokemon)
+  userPokemons = UserPokemon.query.filter_by(user_id=current_user.user_id).all()
+  return render_template('home.html', pokemons = pokemons, selectedPokemon=selectedPokemon, userPokemons = userPokemons)
   
 @app.route("/login", methods=['POST'])
 def loginUser():
@@ -84,18 +86,21 @@ def signupUser():
     db.session.commit()  # save user
     login_user(newuser)  # login the user
     flash('Account Created!')  # send message
-    return redirect(url_for('home.html'))  # redirect to homepage
+    return redirect('/app')  # redirect to homepage
   except Exception:  # attempted to insert a duplicate user
     db.session.rollback()
     flash("username or email already exists")  # error message
-  return redirect(url_for('home_page'))
+  return redirect('/')
 
 
-@app.route("/pokemon/<pokemon_id>", methods=['POST'])
+@app.route("/pokemon/<int:pokemon_id>", methods=['POST'])
 @login_required
-def capture():
+def capture(pokemon_id):
+  data = request.form
+  name = data.get('pokemon_name')
+  User.catch_pokemon(pokemon_id, name)
   flash('Pokemon Captured!')
-  return redirect(url_for('home_page'))
+  return redirect('/app')
 
 
 @app.route("/rename-pokemon/<int:user_poke_id>", methods=['POST'])
@@ -105,7 +110,7 @@ def rename(user_poke_id):
   name = data.get('name')
   User.rename_pokemon(user_poke_id, name)
   flash('Pokemon Renamed!')
-  return redirect(url_for('home_page'))
+  return redirect('/app')
 
 
 @app.route("/release-pokemon/<int:user_poke_id>", methods=['GET'])
@@ -113,14 +118,14 @@ def rename(user_poke_id):
 def release(user_poke_id):
   User.release_pokemon(user_poke_id)
   flash('Pokemon Released!')
-  return redirect(url_for('home_page'))
+  return redirect('/app')
 
 
 @app.route("/logout", methods=['GET'])
 def logout():
   logout_user()
   flash('Logged Out')
-  return redirect(url_for('home_page'))
+  return redirect('/')
 
 
 # Form Action Routes

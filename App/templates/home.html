@@ -15,7 +15,7 @@
 
 <div class="row">
     <div class="col m2 list-container collection" style="max-height: 84vh;">
-      {% if current_user.is_authenticated %} -->
+      {% if current_user.is_authenticated %}
         {% for pokemon in pokemons %}
           {% if pokemon.id == selectedPokemon.id %}
             <div class="list-item">  
@@ -58,16 +58,16 @@
       <h5 class="text-center">Your Pokemon</h5>
       <table>
         <thead>
-          <th>ID</th>
+          <th>Pokemon</th>
           <th>Name</th>
-          <th>Species</th>
-          <th></th>
+          <th>Actions</th>
           <th></th>
         </thead>
         <tbody>
+          {% if current_user.is_authenticated %}
+          {% for userPokemon in userPokemons %}
           <tr>
-            <td>{{selectedPokemon.id}}</td>
-            <td>{{selectedPokemon.name}}</td>
+            <td>{{userPokemon.pokemon.name}}</td>
             <td>{{selectedPokemon.name}}</td>
             <td>
               <form id="renameForm" method="POST" action="/rename-pokemon/{{selectedPokemon.id}}" style="padding:1em">
@@ -79,6 +79,8 @@
               <a class="btn" href="/release-pokemon/{{selectedPokemon.id}}">Release</a>
             </td>
           </tr>
+          {% endfor %}
+          {% endif %}
         </tbody>
       </table>
     </div>
