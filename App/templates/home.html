@@ -47,7 +47,8 @@
             <form id="captureForm" method="POST" action="/pokemon/{{selectedPokemon.id}}" style="padding:1em">
               <row>
                 <input placeholder="Enter A Name Here" id="pokemon_name" name="pokemon_name" type="text" class="validate">
-                <a class="btn" id="captureBtn" href="/pokemon/{{selectedPokemon.id}}">Capture</a>
+                <input class="btn" id="captureBtn" type="submit" value="Capture">
+<!--                 <a class="btn" id="captureBtn" href="/pokemon/{{selectedPokemon.id}}">Capture</a> -->
               </row>
             </form>
           </div>
@@ -72,7 +73,7 @@
             <td>
               <form id='{{userPokemon.name}}-new_name' method="POST" action="/rename-pokemon/{{userPokemon.id}}" style="padding:1em">
                 <input placeholder="Enter New Name Here" id="pokemon_name" name="pokemon_name" type="text" class="input-field col s7 validate">
-                <a class="btn" id="rename-{{userPokemon.name}}" href="/rename-pokemon/{{userPokemon.id}}">Rename</a>
+                <input class="btn" id="rename-{{userPokemon.name}}" type="submit" value="Rename">
               </form> 
             </td>
             <td>
