@@ -72,7 +72,7 @@
             <td>{{userPokemon.name}}</td>
             <td>
               <form id='{{userPokemon.name}}-new_name' method="POST" action="/rename-pokemon/{{userPokemon.id}}" style="padding:1em">
-                <input placeholder="Enter New Name Here" id="pokemon_name" name="pokemon_name" type="text" class="input-field col s7 validate">
+                <input placeholder="Enter New Name Here" id="{{userPokemon.name}}-new_name" name="pokemon_name" type="text" class="input-field col s7 validate">
                 <input class="btn" id="rename-{{userPokemon.name}}" type="submit" value="Rename">
               </form> 
             </td>
